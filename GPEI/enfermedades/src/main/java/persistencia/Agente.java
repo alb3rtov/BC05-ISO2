@@ -1,4 +1,4 @@
-package enfermedades;
+package persistencia;
 import java.sql.*;
 
 public class Agente implements ConstantesDB {
