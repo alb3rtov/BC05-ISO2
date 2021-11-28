@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dominio.Enfermedad;
 import dominio.GestorEnfermedades;
+import dominio.Vacuna;
 
 public class JFrameBuscarEnfermedades extends JFrame {
 	
@@ -26,9 +27,11 @@ public class JFrameBuscarEnfermedades extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextPane textPane;
 	private DefaultTableModel model;
+	private JTable table;
+	ArrayList<Enfermedad> enfermedadesEncontradas =  new ArrayList<Enfermedad>();
 	
 	public JFrameBuscarEnfermedades() {
-		setTitle("Enfermedades");
+		setTitle("Buscar enfermedades");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 438, 385);
 		contentPane = new JPanel();
@@ -41,14 +44,44 @@ public class JFrameBuscarEnfermedades extends JFrame {
 		lblRegistrarEnfermedad.setBounds(130, 10, 180, 30);
 		contentPane.add(lblRegistrarEnfermedad);
 		
-		JLabel lblBuscarEnfermedad = new JLabel("Nombre: ");
-		lblBuscarEnfermedad.setBounds(6, 50, 150, 30);
-		contentPane.add(lblBuscarEnfermedad);
+			JLabel lblBuscarEnfermedad = new JLabel("Nombre: ");
+			lblBuscarEnfermedad.setBounds(6, 50, 150, 30);
+			contentPane.add(lblBuscarEnfermedad);
 		
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(60, 50, 134, 28);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
+		
+		final JButton btnAbrirDetalles = new JButton("Abrir detalles");
+		btnAbrirDetalles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRowCount() == 1) {
+					Enfermedad enfermedadEncontrada = null;
+					try {
+						for (int i = 0; i < enfermedadesEncontradas.size(); i++) {
+							if (enfermedadesEncontradas.get(i).getNombre() == (String) table.getValueAt(table.getSelectedRow(), 0)) {
+								enfermedadEncontrada = enfermedadesEncontradas.get(i);
+								break;
+							}
+						}
+						
+						ArrayList<Vacuna> vacunas = new ArrayList<Vacuna>();
+						vacunas = GestorEnfermedades.buscarVacuna(enfermedadEncontrada.getNombre());
+						JFrameDetallesEnfermedad frame = new JFrameDetallesEnfermedad(vacunas,enfermedadEncontrada);
+						frame.setVisible(true);
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else {
+					textPane.setText("Para abrir detalles selecciona una única fila");
+				}
+				
+			}
+		});
 		
 		JButton btnlBuscarEnfermedad = new JButton("Buscar");
 		btnlBuscarEnfermedad.addActionListener(new ActionListener() {
@@ -56,7 +89,6 @@ public class JFrameBuscarEnfermedades extends JFrame {
 				
 				if (textFieldNombre.getText().length() != 0) { 
 					try {
-						ArrayList<Enfermedad> enfermedadesEncontradas =  new ArrayList<Enfermedad>();
 						ArrayList<String> enfermedades = new ArrayList<String>();
 						ArrayList<String> descripciones = new ArrayList<String>();
 						ArrayList<String> temporalidades = new ArrayList<String>();
@@ -79,7 +111,7 @@ public class JFrameBuscarEnfermedades extends JFrame {
 								if (enfermedadesEncontradas.get(i).getTemporalidad() == -1) {
 									temporalidades.add("Indefinido");
 								} else {
-									temporalidades.add(enfermedadesEncontradas.get(i).getTemporalidad() + "");
+									temporalidades.add(enfermedadesEncontradas.get(i).getTemporalidad() + " días");
 								}
 							}
 						
@@ -90,11 +122,13 @@ public class JFrameBuscarEnfermedades extends JFrame {
 							}
 							
 							JScrollPane scrollPane = new JScrollPane();
-							scrollPane.setBounds(10, 140, 407, 100);
+							scrollPane.setBounds(10, 140, 407, 120);
 							getContentPane().add(scrollPane);
-							JTable table = new JTable(datos, columnas);
+							table = new JTable(datos, columnas);
 							model = new DefaultTableModel(datos, columnas);
 							scrollPane.setViewportView(table);
+							table.setRowSelectionInterval(0, 0);
+							btnAbrirDetalles.setVisible(true);
 						}
 						
 					} catch (Exception e) {
@@ -114,6 +148,10 @@ public class JFrameBuscarEnfermedades extends JFrame {
 		textPane.setEditable(false);
 		textPane.setBounds(6, 100, 407, 25);
 		contentPane.add(textPane);
+		
+		btnAbrirDetalles.setBounds(150, 270, 120, 30);
+		btnAbrirDetalles.setVisible(false);
+		contentPane.add(btnAbrirDetalles);
 	}
 
 }

@@ -46,11 +46,10 @@ public class Enfermedad {
 		
 		salida = Agente.getAgente().insert("insert into ENFERMEDADES (NOMBRE, DESCRIPCION, TEMPORALIDAD) values('"+this.nombre+"','"+this.descripcion+"',"+this.temporalidad+")");
 		System.out.println(salida);
-		//System.out.println(salida);
 		return salida;
 	}
 	
-	public static ArrayList<Enfermedad> read(String nombreEnfermedad) {
+	public static ArrayList<Enfermedad> readEnfermedad(String nombreEnfermedad) {
 		ArrayList<String> list = new ArrayList<String>();
 		ResultSet resultSet;
 		String str = new String(nombreEnfermedad);
@@ -100,5 +99,48 @@ public class Enfermedad {
 			e.printStackTrace();
 		}
 		return enfermedadesEncontradas;
+	}
+	
+	public static ArrayList<Vacuna> readVacunas(String nombreEnfermedad) {
+		String str = new String(nombreEnfermedad);
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Vacuna> vacunasEncontradas = new ArrayList<Vacuna>();
+		
+		int id;
+		String enfermedad = nombreEnfermedad;
+		String nombre;
+		int num_dosis;
+		
+		try {
+			int i = 0;
+			int size = 0;
+			Vacuna vacuna;
+			
+			ResultSet resultSet = Agente.getAgente().select("select * from VACUNAS where ID_ENFERMEDAD = (SELECT ID_ENFERMEDAD FROM ENFERMEDADES WHERE NOMBRE='" + str + "')");
+			
+			while (resultSet.next()) {
+				list.add(resultSet.getString("ID"));
+				list.add(resultSet.getString("NOMBRE"));
+				list.add(resultSet.getString("NUM_DOSIS"));
+			}
+			
+			while (list.size()/3 > i) {
+				
+				id = Integer.parseInt(list.get(0+size));
+				nombre = list.get(1+size);
+				num_dosis = Integer.parseInt(list.get(2+size));
+				i++;
+				size +=3;
+				
+				vacuna = new Vacuna(id, nombre, enfermedad, num_dosis);
+				vacunasEncontradas.add(vacuna);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return vacunasEncontradas;
 	}
 }

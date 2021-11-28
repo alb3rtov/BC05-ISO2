@@ -1,11 +1,12 @@
 package dominio;
+
 import java.util.ArrayList;
 
 public class GestorEnfermedades {
 	
 	public static ArrayList<Enfermedad> buscarEnfermedad(String nombre) throws Exception{
 		ArrayList<Enfermedad> enfermedadesEncontradas = new ArrayList<Enfermedad>();
-		enfermedadesEncontradas = Enfermedad.read(nombre);
+		enfermedadesEncontradas = Enfermedad.readEnfermedad(nombre);
 		return enfermedadesEncontradas;
 	}
 	
@@ -21,5 +22,10 @@ public class GestorEnfermedades {
 		}
 		
 		return registrado;
+	}
+	
+	public static ArrayList<Vacuna> buscarVacuna(String nombre) throws Exception{
+		ArrayList<Vacuna> vacunasEncontradas = Enfermedad.readVacunas(nombre);
+		return vacunasEncontradas;
 	}
 }
