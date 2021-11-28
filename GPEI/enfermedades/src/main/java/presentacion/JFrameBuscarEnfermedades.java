@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dominio.Enfermedad;
 import dominio.GestorEnfermedades;
+import dominio.Medicina;
 import dominio.Vacuna;
 
 public class JFrameBuscarEnfermedades extends JFrame {
@@ -68,7 +69,9 @@ public class JFrameBuscarEnfermedades extends JFrame {
 						
 						ArrayList<Vacuna> vacunas = new ArrayList<Vacuna>();
 						vacunas = GestorEnfermedades.buscarVacuna(enfermedadEncontrada.getNombre());
-						JFrameDetallesEnfermedad frame = new JFrameDetallesEnfermedad(vacunas,enfermedadEncontrada);
+						ArrayList<Medicina> medicinas = new ArrayList<Medicina>();
+						medicinas = GestorEnfermedades.buscarMedicina(enfermedadEncontrada.getNombre());
+						JFrameDetallesEnfermedad frame = new JFrameDetallesEnfermedad(vacunas,medicinas,enfermedadEncontrada);
 						frame.setVisible(true);
 					
 					} catch (Exception e) {

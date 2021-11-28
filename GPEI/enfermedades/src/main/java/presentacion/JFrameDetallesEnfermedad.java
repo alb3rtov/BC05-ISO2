@@ -13,16 +13,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dominio.Enfermedad;
+import dominio.Medicina;
 import dominio.Vacuna;
 
 public class JFrameDetallesEnfermedad extends JFrame {
 	
 	private JPanel contentPane;
-	private JTextPane textPane = new JTextPane();;
+	private JTextPane textPane1 = new JTextPane();
+	private JTextPane textPane2 = new JTextPane();
 	private DefaultTableModel model;
 	private JTable table;
 	
-	public JFrameDetallesEnfermedad(ArrayList<Vacuna> vacunas, Enfermedad enfermedadEncontrada) {
+	public JFrameDetallesEnfermedad(ArrayList<Vacuna> vacunas, ArrayList<Medicina> medicinas, Enfermedad enfermedadEncontrada) {
 		setTitle(enfermedadEncontrada.getNombre());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 438, 385);
@@ -40,13 +42,13 @@ public class JFrameDetallesEnfermedad extends JFrame {
 		lblDescripcion.setBounds(6, 50, 150, 30);
 		contentPane.add(lblDescripcion);
 		
-		textPane.setText(enfermedadEncontrada.getDescripcion());
-		textPane.setToolTipText("Mostrar descripcion de la enfermedad");
-		textPane.setEditable(false);
+		textPane1.setText(enfermedadEncontrada.getDescripcion());
+		textPane1.setToolTipText("Mostrar descripcion de la enfermedad");
+		textPane1.setEditable(false);
 		float number = (float) enfermedadEncontrada.getDescripcion().length()/70;
 		int dimy = (int) (20*(Math.ceil(number)));
-		textPane.setBounds(6, 80, 407, dimy);
-		contentPane.add(textPane);
+		textPane1.setBounds(6, 80, 407, dimy);
+		contentPane.add(textPane1);
 		
 		JLabel lblTemporalidad = new JLabel("Temporalidad: ");
 		lblTemporalidad.setBounds(6, dimy+80, 150, 30);
@@ -57,8 +59,34 @@ public class JFrameDetallesEnfermedad extends JFrame {
 		lblTextTemporalidad.setBounds(100, dimy+80, 150, 30);
 		contentPane.add(lblTextTemporalidad);
 		
+		JLabel lblMedicinas= new JLabel("Medicinas: ");
+		lblMedicinas.setBounds(6, dimy+110, 150, 30);
+		contentPane.add(lblMedicinas);
+		
+		if (medicinas.size() != 0) {
+			String cadena = "";
+			for (int i = 0; i < medicinas.size(); i++) {
+				if (medicinas.size()-1 == i) {
+					cadena += medicinas.get(i).getNombre();
+				} else {
+					cadena+= medicinas.get(i).getNombre() + ",";
+				}
+			}
+			textPane2.setText(cadena);
+			textPane2.setToolTipText("Mostrar medicinas para la enfermedad");
+			textPane2.setEditable(false);
+			textPane2.setBounds(6, dimy+140, 407, 30);
+			contentPane.add(textPane2);
+		} else {
+			textPane2.setText("No existen medicinas para esta enfermedad");
+			textPane2.setToolTipText("Mostrar medicinas para la enfermedad");
+			textPane2.setEditable(false);
+			textPane2.setBounds(6, dimy+140, 407, 30);
+			contentPane.add(textPane2);
+		}
+		
 		JLabel lblVacunas= new JLabel("Vacunas: ");
-		lblVacunas.setBounds(6, dimy+110, 150, 30);
+		lblVacunas.setBounds(6, dimy+170, 150, 30);
 		contentPane.add(lblVacunas);
 		
 		if (vacunas.size() != 0) {
@@ -80,14 +108,14 @@ public class JFrameDetallesEnfermedad extends JFrame {
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, dimy+140, 407, 80);
+			scrollPane.setBounds(10, dimy+200, 407, 60);
 			getContentPane().add(scrollPane);
 			table = new JTable(datos, columnas);
 			model = new DefaultTableModel(datos, columnas);
 			scrollPane.setViewportView(table);
 		} else {
 			JLabel lblNoVacunas= new JLabel("No existen vacunas para esta enfermedad");
-			lblNoVacunas.setBounds(70, dimy+110, 280, 30);
+			lblNoVacunas.setBounds(70, dimy+170, 280, 30);
 			contentPane.add(lblNoVacunas);
 		}	
 	}

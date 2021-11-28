@@ -28,4 +28,9 @@ public class GestorEnfermedades {
 		ArrayList<Vacuna> vacunasEncontradas = Enfermedad.readVacunas(nombre);
 		return vacunasEncontradas;
 	}
+	
+	public static ArrayList<Medicina> buscarMedicina(String nombre) throws Exception {
+		ArrayList<Medicina> medicinasEncontradas = Enfermedad.readMedicinas(nombre);
+		return medicinasEncontradas;
+	}
 }

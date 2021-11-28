@@ -143,4 +143,48 @@ public class Enfermedad {
 		
 		return vacunasEncontradas;
 	}
+	
+	public static ArrayList<Medicina> readMedicinas(String nombreEnfermedad) {
+		String str = new String(nombreEnfermedad);
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Medicina> medicinasEncontradas = new ArrayList<Medicina>();
+		
+		int id;
+		String enfermedad = nombreEnfermedad;
+		String nombre;
+		String organismo;
+		
+		try {
+			int i = 0;
+			int size = 0;
+			Medicina medicina;
+			
+			//ResultSet resultSet = Agente.getAgente().select("select * from VACUNAS where ID_ENFERMEDAD = (SELECT ID_ENFERMEDAD FROM ENFERMEDADES WHERE NOMBRE='" + str + "')");
+			ResultSet resultSet = Agente.getAgente().select("select m.ID_MEDICINA, m.NOMBRE, o.NOMBRE FROM MEDICINAS m join ENFERMEDAD_MEDICINA em on m.ID_MEDICINA=em.ID_MEDICINA join ORGANISMOS o on m.O_APROBADOR=o.ID_ORGANISMO join ENFERMEDADES e on em.ID_ENFERMEDAD=e.ID_ENFERMEDAD WHERE e.NOMBRE='"+str+"'");
+			
+			while (resultSet.next()) {
+				list.add(resultSet.getString("m.ID_MEDICINA"));
+				list.add(resultSet.getString("m.NOMBRE"));
+				list.add(resultSet.getString("o.NOMBRE"));
+			}
+			
+			while (list.size()/3 > i) {
+				
+				id = Integer.parseInt(list.get(0+size));
+				nombre = list.get(1+size);
+				organismo = list.get(2+size);
+				i++;
+				size +=3;
+				
+				medicina = new Medicina(id, nombre, organismo, enfermedad);
+				medicinasEncontradas.add(medicina);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return medicinasEncontradas;
+	}
 }
