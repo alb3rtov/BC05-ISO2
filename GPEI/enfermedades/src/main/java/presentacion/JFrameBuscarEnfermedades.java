@@ -45,9 +45,9 @@ public class JFrameBuscarEnfermedades extends JFrame {
 		lblRegistrarEnfermedad.setBounds(130, 10, 180, 30);
 		contentPane.add(lblRegistrarEnfermedad);
 		
-			JLabel lblBuscarEnfermedad = new JLabel("Nombre: ");
-			lblBuscarEnfermedad.setBounds(6, 50, 150, 30);
-			contentPane.add(lblBuscarEnfermedad);
+		JLabel lblBuscarEnfermedad = new JLabel("Nombre: ");
+		lblBuscarEnfermedad.setBounds(6, 50, 150, 30);
+		contentPane.add(lblBuscarEnfermedad);
 		
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(60, 50, 134, 28);
@@ -80,7 +80,71 @@ public class JFrameBuscarEnfermedades extends JFrame {
 					}
 
 				} else {
-					textPane.setText("Para abrir detalles selecciona una �nica fila");
+					textPane.setText("Para abrir detalles selecciona una única fila");
+				}
+				
+			}
+		});
+		
+		//Modificar enfermedad
+		final JButton btnModificarEnfermedad = new JButton("Modificar");
+		btnModificarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRowCount() == 1) {
+					Enfermedad enfermedadEncontrada = null;
+					try {
+						for (int i = 0; i < enfermedadesEncontradas.size(); i++) {
+							if (enfermedadesEncontradas.get(i).getNombre() == (String) table.getValueAt(table.getSelectedRow(), 0)) {
+								enfermedadEncontrada = enfermedadesEncontradas.get(i);
+								break;
+							}
+						}
+						
+						ArrayList<Vacuna> vacunas = new ArrayList<Vacuna>();
+						vacunas = GestorEnfermedades.buscarVacuna(enfermedadEncontrada.getNombre());
+						ArrayList<Medicina> medicinas = new ArrayList<Medicina>();
+						medicinas = GestorEnfermedades.buscarMedicina(enfermedadEncontrada.getNombre());
+						JFrameModificarEnfermedades frame = new JFrameModificarEnfermedades(enfermedadEncontrada);
+						frame.setVisible(true);
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else {
+					textPane.setText("Para abrir detalles selecciona una única fila");
+				}
+				
+			}
+		});
+		
+		//Eliminar enfermedad
+		final JButton btnEliminarEnfermedad = new JButton("Eliminar enfermedad");
+		btnEliminarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRowCount() == 1) {
+					int enfermedadEncontrada = -1;
+					String nombreEnfermedad = null;
+					try {
+						for (int i = 0; i < enfermedadesEncontradas.size(); i++) {
+							if (enfermedadesEncontradas.get(i).getNombre() == (String) table.getValueAt(table.getSelectedRow(), 0)) {
+								enfermedadEncontrada = enfermedadesEncontradas.get(i).getId();
+								nombreEnfermedad = enfermedadesEncontradas.get(i).getNombre();
+								break;
+							}
+						}
+						
+						int deletedRow = GestorEnfermedades.eliminarEnfermedad(enfermedadEncontrada);
+						textPane.setText("Se ha eliminado la enfermedad '"+nombreEnfermedad+"'");
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else {
+					textPane.setText("Para abrir detalles selecciona una única fila");
 				}
 				
 			}
@@ -114,7 +178,7 @@ public class JFrameBuscarEnfermedades extends JFrame {
 								if (enfermedadesEncontradas.get(i).getTemporalidad() == -1) {
 									temporalidades.add("Indefinido");
 								} else {
-									temporalidades.add(enfermedadesEncontradas.get(i).getTemporalidad() + " d�as");
+									temporalidades.add(enfermedadesEncontradas.get(i).getTemporalidad() + " días");
 								}
 							}
 						
@@ -132,6 +196,8 @@ public class JFrameBuscarEnfermedades extends JFrame {
 							scrollPane.setViewportView(table);
 							table.setRowSelectionInterval(0, 0);
 							btnAbrirDetalles.setVisible(true);
+							btnModificarEnfermedad.setVisible(true);
+							btnEliminarEnfermedad.setVisible(true);
 						}
 						
 					} catch (Exception e) {
@@ -146,15 +212,23 @@ public class JFrameBuscarEnfermedades extends JFrame {
 		btnlBuscarEnfermedad.setBounds(230, 50, 120, 30);
 		contentPane.add(btnlBuscarEnfermedad);
 		
+		btnAbrirDetalles.setBounds(10, 270, 124, 30);
+		btnAbrirDetalles.setVisible(false);
+		contentPane.add(btnAbrirDetalles);
+		
+		btnModificarEnfermedad.setBounds(150, 270, 124, 30);
+		btnModificarEnfermedad.setVisible(false);
+		contentPane.add(btnModificarEnfermedad);
+		
+		btnEliminarEnfermedad.setBounds(290, 270, 124, 30);
+		btnEliminarEnfermedad.setVisible(false);
+		contentPane.add(btnEliminarEnfermedad);
+		
 		textPane = new JTextPane();
 		textPane.setToolTipText("Panel para mostrar el resultado de la comprobaci\u00F3n de buscar contenido o las excepciones lanzadas");
 		textPane.setEditable(false);
-		textPane.setBounds(6, 100, 407, 25);
+		textPane.setBounds(6, 310, 407, 25);
 		contentPane.add(textPane);
-		
-		btnAbrirDetalles.setBounds(150, 270, 120, 30);
-		btnAbrirDetalles.setVisible(false);
-		contentPane.add(btnAbrirDetalles);
 	}
 
 }

@@ -24,6 +24,17 @@ public class GestorEnfermedades {
 		return registrado;
 	}
 	
+	public static int eliminarEnfermedad(int id) throws Exception{
+		int eliminado = Enfermedad.deleteEnfermedad(id);
+		return eliminado;
+	}
+	
+	public static int modificarEnfermedad(int id, String nombre, String descripcion, String temporalidad) throws Exception{
+		Integer uTemporalidad = Integer.parseInt(temporalidad);
+		int modificado = Enfermedad.updateEnfermedad(id, nombre, descripcion, uTemporalidad);
+		return modificado;
+	}
+	
 	public static ArrayList<Vacuna> buscarVacuna(String nombre) throws Exception{
 		ArrayList<Vacuna> vacunasEncontradas = Enfermedad.readVacunas(nombre);
 		return vacunasEncontradas;
@@ -33,4 +44,5 @@ public class GestorEnfermedades {
 		ArrayList<Medicina> medicinasEncontradas = Enfermedad.readMedicinas(nombre);
 		return medicinasEncontradas;
 	}
+	
 }

@@ -187,4 +187,43 @@ public class Enfermedad {
 		
 		return medicinasEncontradas;
 	}
+	
+	public static int deleteEnfermedad(int idEnfermedad) {
+		int result = -1;
+		
+		try {
+			result = Agente.getAgente().delete("delete from ENFERMEDADES where ID_ENFERMEDAD = '"+idEnfermedad+"';");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public static int updateEnfermedad(int idEnfermedad, String nombre, String descripcion, int temporalidad) {
+		int result = -1;
+		
+		try {
+			result = Agente.getAgente().update("update ENFERMEDADES set NOMBRE = '"+nombre+"', DESCRIPCION = '"+descripcion+"', TEMPORALIDAD = "+temporalidad+" where ID_ENFERMEDAD = '"+idEnfermedad+"';");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public static int updateEnfermedad(int idEnfermedad, String campo, int nuevoValor) {
+		int result = -1;
+		
+		try {
+			result = Agente.getAgente().update("update ENFERMEDADES set "+campo+" = '"+nuevoValor+"' where ID_ENFERMEDAD = '"+idEnfermedad+"';");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
