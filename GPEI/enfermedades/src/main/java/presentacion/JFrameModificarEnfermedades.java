@@ -66,22 +66,32 @@ public class JFrameModificarEnfermedades extends JFrame {
 		contentPane.add(textFieldTemporalidad);
 		textFieldTemporalidad.setColumns(10);
 		
-		
 		JButton btnlModificarEnfermedad = new JButton("Modificar");
 		btnlModificarEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int modificado = -1;
 				
+				String tmpNombre = "", tmpDescripcion = "", tmpTemporalidad = "";
+				
+				if(textFieldNombre.getText().equals("")) tmpNombre = enfermedadEncontrada.getNombre();
+				else tmpNombre = textFieldNombre.getText();
+				if(textFieldDescripcion.getText().equals("")) tmpDescripcion = enfermedadEncontrada.getDescripcion();
+				else tmpDescripcion = textFieldDescripcion.getText();
+				if(textFieldTemporalidad.getText().equals("")) tmpTemporalidad = ""+enfermedadEncontrada.getTemporalidad();
+				else tmpTemporalidad = textFieldTemporalidad.getText();
+				
+				final String nombre = tmpNombre, descripcion = tmpDescripcion, temporalidad = tmpTemporalidad;
+				
 				try {
-					modificado = GestorEnfermedades.modificarEnfermedad(enfermedadEncontrada.getId(), textFieldNombre.getText(), textFieldDescripcion.getText(), textFieldTemporalidad.getText());
+					modificado = GestorEnfermedades.modificarEnfermedad(enfermedadEncontrada.getId(), nombre, descripcion, temporalidad);
 				}catch (Exception e) {
 					textPane.setText("Ha ocurrido un error, vuelva a intentarlo" + e.toString());
 				}
 				
 				if (modificado != -1) {
-					textPane.setText("Enfermedad modificada");
+					textPane.setText("Enfermedad modificada\nNombre: "+nombre+", Descripción: "+descripcion+", Temporalidad: "+temporalidad);
 				} else {
-					textPane.setText("Ha ocurrido un error durante la modificación");
+					textPane.setText("Ha ocurrido un error durante la modificación.\nNombre: "+nombre+", Descripción: "+descripcion+", Temporalidad: "+temporalidad);
 				}
 			}
 		});
