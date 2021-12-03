@@ -41,7 +41,7 @@ public class UI_Enfermedades extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitulo = new JLabel("Menú enfermedades");
+		JLabel lblTitulo = new JLabel("Menu enfermedades");
 		lblTitulo.setFont(new Font(null, Font.PLAIN, 16));
 		lblTitulo.setBounds(135, 37, 150, 30);
 		contentPane.add(lblTitulo);
@@ -61,33 +61,11 @@ public class UI_Enfermedades extends JFrame {
 				frame.setVisible(true);
 			}
 		});
-		/*
-		JButton btnModificarEnfermedad = new JButton("Modificar enfermedad");
-		btnModificarEnfermedad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFrameRegistrarEnfermedades frame = new JFrameModificarEnfermedades();
-				frame.setVisible(true);
-			}
-		});
 		
-		JButton btnEliminarEnfermedad = new JButton("Eliminar enfermedad");
-		btnEliminarEnfermedad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFrameRegistrarEnfermedades frame = new JFrameEliminarEnfermedades();
-				frame.setVisible(true);
-			}
-		});
-		*/
 		btnBuscarEnfermedad.setBounds(110, 90, 200, 40);
 		contentPane.add(btnBuscarEnfermedad);
 		
 		btnRegistrarEnfermedad.setBounds(110, 140, 200, 40);
 		contentPane.add(btnRegistrarEnfermedad);
-		/*
-		btnModificarEnfermedad.setBounds(110, 140, 200, 40);
-		contentPane.add(btnModificarEnfermedad);
-		
-		btnEliminarEnfermedad.setBounds(110, 140, 200, 40);
-		contentPane.add(btnEliminarEnfermedad);*/
 	}
 }
