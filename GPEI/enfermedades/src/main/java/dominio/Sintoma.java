@@ -1,11 +1,11 @@
 package dominio;
 
-public class Sintomas {
+public class Sintoma {
 	private int id;
 	private String nombre;
 	private String descripcion;
 	
-	public Sintomas(int id, String nombre, String descripcion) {
+	public Sintoma(int id, String nombre, String descripcion) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;

@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dominio.Enfermedad;
 import dominio.Medicina;
+import dominio.Sintoma;
 import dominio.Vacuna;
 
 public class JFrameDetallesEnfermedad extends JFrame {
@@ -21,13 +22,14 @@ public class JFrameDetallesEnfermedad extends JFrame {
 	private JPanel contentPane;
 	private JTextPane textPane1 = new JTextPane();
 	private JTextPane textPane2 = new JTextPane();
+	private JTextPane textPane3 = new JTextPane();
 	private DefaultTableModel model;
 	private JTable table;
 	
-	public JFrameDetallesEnfermedad(ArrayList<Vacuna> vacunas, ArrayList<Medicina> medicinas, Enfermedad enfermedadEncontrada) {
+	public JFrameDetallesEnfermedad(ArrayList<Vacuna> vacunas, ArrayList<Medicina> medicinas, ArrayList<Sintoma> sintomas, Enfermedad enfermedadEncontrada) {
 		setTitle(enfermedadEncontrada.getNombre());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 438, 385);
+		setBounds(100, 100, 438, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,8 +87,34 @@ public class JFrameDetallesEnfermedad extends JFrame {
 			contentPane.add(textPane2);
 		}
 		
+		JLabel lblSintomas= new JLabel("Sintomas: ");
+		lblSintomas.setBounds(6, dimy+170, 150, 30);
+		contentPane.add(lblSintomas);
+		
+		if (sintomas.size() != 0) {
+			String cadena = "";
+			for (int i = 0; i < sintomas.size(); i++) {
+				if (sintomas.size()-1 == i) {
+					cadena += sintomas.get(i).getNombre();
+				} else {
+					cadena+= sintomas.get(i).getNombre() + ",";
+				}
+			}
+			textPane3.setText(cadena);
+			textPane3.setToolTipText("Mostrar sintomas de la enfermedad");
+			textPane3.setEditable(false);
+			textPane3.setBounds(6, dimy+200, 407, 30);
+			contentPane.add(textPane3);
+		} else {
+			textPane3.setText("No existen sintomas para esta enfermedad");
+			textPane3.setToolTipText("Mostrar sintomas de la enfermedad");
+			textPane3.setEditable(false);
+			textPane3.setBounds(6, dimy+200, 407, 30);
+			contentPane.add(textPane3);
+		}
+		
 		JLabel lblVacunas= new JLabel("Vacunas: ");
-		lblVacunas.setBounds(6, dimy+170, 150, 30);
+		lblVacunas.setBounds(6, dimy+230, 150, 30);
 		contentPane.add(lblVacunas);
 		
 		if (vacunas.size() != 0) {
@@ -108,15 +136,18 @@ public class JFrameDetallesEnfermedad extends JFrame {
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, dimy+200, 407, 60);
+			scrollPane.setBounds(10, dimy+260, 407, 60);
 			getContentPane().add(scrollPane);
 			table = new JTable(datos, columnas);
 			model = new DefaultTableModel(datos, columnas);
 			scrollPane.setViewportView(table);
 		} else {
 			JLabel lblNoVacunas= new JLabel("No existen vacunas para esta enfermedad");
-			lblNoVacunas.setBounds(70, dimy+170, 280, 30);
+			lblNoVacunas.setBounds(70, dimy+230, 280, 30);
 			contentPane.add(lblNoVacunas);
-		}	
+		}
+		
+
+		
 	}
 }

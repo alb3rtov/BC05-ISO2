@@ -45,4 +45,9 @@ public class GestorEnfermedades {
 		return medicinasEncontradas;
 	}
 	
+	public static ArrayList<Sintoma> buscarSintoma(String nombre) throws Exception {
+		ArrayList<Sintoma> sintomasEncontradas = Enfermedad.readSintomas(nombre);
+		return sintomasEncontradas;
+	}
+	
 }

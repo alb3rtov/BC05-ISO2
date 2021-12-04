@@ -188,6 +188,49 @@ public class Enfermedad {
 		return medicinasEncontradas;
 	}
 	
+	public static ArrayList<Sintoma> readSintomas(String nombreEnfermedad) {
+		String str = new String(nombreEnfermedad);
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Sintoma> sintomasEncontradas = new ArrayList<Sintoma>();
+		
+		int id;
+		String nombre;
+		String descripcion_s;
+		
+		try {
+			int i = 0;
+			int size = 0;
+			Sintoma sintoma;
+			
+			//ResultSet resultSet = Agente.getAgente().select("select * from VACUNAS where ID_ENFERMEDAD = (SELECT ID_ENFERMEDAD FROM ENFERMEDADES WHERE NOMBRE='" + str + "')");
+			ResultSet resultSet = Agente.getAgente().select("select s.ID_SINTOMA, s.NOMBRE, s.DESCRIPCION FROM SINTOMAS s join ENFERMEDAD_SINTOMAS es on s.ID_SINTOMA=es.ID_SINTOMA join ENFERMEDADES e on es.ID_ENFERMEDAD=e.ID_ENFERMEDAD where e.NOMBRE='"+str+"'");
+			
+			while (resultSet.next()) {
+				list.add(resultSet.getString("s.ID_SINTOMA"));
+				list.add(resultSet.getString("s.NOMBRE"));
+				list.add(resultSet.getString("s.DESCRIPCION"));
+			}
+			
+			while (list.size()/3 > i) {
+				
+				id = Integer.parseInt(list.get(0+size));
+				nombre = list.get(1+size);
+				descripcion_s = list.get(2+size);
+				i++;
+				size +=3;
+				
+				sintoma = new Sintoma(id, nombre, descripcion_s);
+				sintomasEncontradas.add(sintoma);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sintomasEncontradas;
+	}
+	
 	public static int deleteEnfermedad(int idEnfermedad) {
 		int result = -1;
 		
