@@ -1,0 +1,70 @@
+package presentacion;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+
+public class UI_Campanias extends JFrame {
+	private JPanel contentPane;
+
+	/* Main function */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UI_Campanias frame = new UI_Campanias();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}	
+	
+	/* Constructor */
+	public UI_Campanias() {
+		setTitle("Campa\u00f1as");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 438, 385);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblTitulo = new JLabel("Menu campa\u00f1as");
+		lblTitulo.setFont(new Font(null, Font.PLAIN, 16));
+		lblTitulo.setBounds(150, 37, 150, 30);
+		contentPane.add(lblTitulo);
+		
+		JButton btnBuscarEnfermedad = new JButton("Listar campa\u00f1as");
+		btnBuscarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrameListarCampanias frame = new JFrameListarCampanias();
+				frame.setVisible(true);
+			}
+		});
+		
+		JButton btnRegistrarEnfermedad = new JButton("Registrar campa\u00f1a");
+		btnRegistrarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrameRegistrarCampanias frame = new JFrameRegistrarCampanias();
+				frame.setVisible(true);
+			}
+		});
+		
+		btnBuscarEnfermedad.setBounds(110, 90, 200, 40);
+		contentPane.add(btnBuscarEnfermedad);
+		
+		btnRegistrarEnfermedad.setBounds(110, 140, 200, 40);
+		contentPane.add(btnRegistrarEnfermedad);
+	}
+}
