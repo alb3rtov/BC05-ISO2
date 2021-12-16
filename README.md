@@ -17,6 +17,6 @@ Para tener las diferentes ramas del proyecto en local utilizando Eclipse se tien
 ### Solución error _missing directories_ con módulos de Maven
 En el caso de haber hecho un _pull_ o clonar el repositorio, puede que algunos módulos de Maven no funcionen correctamente debido a que ciertos directorios no se encuentran. Este fallo ocurre debido a que los directorios vacíos no se incluyen cuando se realiza un _commit_. La solución es crear dichos directorios en los módulos Maven que falle, de la siguiente manera:
 
-- Para saber que directorios faltan: Click derecho en el proyecto > _Build Path_ > _Configure Build Path_. Hay aparecerán los directorios _missing_ que faltan.
+- Para saber que directorios faltan: Click derecho en el proyecto > _Build Path_ > _Configure Build Path_. Ahí aparecerán los directorios _missing_ que faltan.
 - Click derecho en el proyecto (módulo de Maven que falle) > _New_ > _Other..._ > _Source Folder_
-- Hay que crear tantos directorios como directorios que no se encuentren, normalmente son: `src/main/resources`, `src/test/java` y `src/test/resources`
+- Hay que crear los directorios que no se encuentren, normalmente son: `src/main/resources`, `src/test/java` y `src/test/resources`
