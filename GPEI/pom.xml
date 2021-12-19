@@ -8,5 +8,6 @@
   <description>Gestion de enfermedades infectocontagiosas</description>
   <modules>
   	<module>enfermedades</module>
+  	<module>campanias</module>
   </modules>
 </project>
