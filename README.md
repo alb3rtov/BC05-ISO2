@@ -20,3 +20,10 @@ En el caso de haber hecho un _pull_ o clonar el repositorio, puede que algunos m
 - Para saber que directorios faltan: Click derecho en el proyecto > _Build Path_ > _Configure Build Path_. Ahí aparecerán los directorios _missing_ que faltan.
 - Click derecho en el proyecto (módulo de Maven que falle) > _New_ > _Other..._ > _Source Folder_
 - Hay que crear los directorios que no se encuentren, normalmente son: `src/main/resources`, `src/test/java` y `src/test/resources`
+
+### Solución no aparece el proyecto de una rama distinta a la master en eclipse
+Si tras haber hecho un _pull_ del repositorio, y haber cambiado de rama tal y como se explica en uno de los apartados anteriores, no aparece el proyecto correspondiente a la rama a la que hemos cambiado, se recomienda eliminar el repositorio al completo y volver a importarlo. 
+
+Durante el proceso de importación, una vez hayamos pasado la ventana en la que se nos piden los datos del repositorio y usuario y contraseña, y haber seleccionado las ramas que deseamos importar, nos aparecera otra ventana en la que deberemos cambiar la rama inicial. En dicho parámetro aparecerá por defecho "Master", que deberemos cambiar con la rama deseada.
+
+De esta forma nos aparecerán los proyectos que no aparecen de otra forma.
