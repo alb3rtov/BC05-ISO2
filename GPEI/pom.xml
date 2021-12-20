@@ -9,5 +9,6 @@
   <modules>
   	<module>enfermedades</module>
   	<module>campanias</module>
+  	<module>personas</module>
   </modules>
 </project>
