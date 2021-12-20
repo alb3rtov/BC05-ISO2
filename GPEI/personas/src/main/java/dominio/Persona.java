@@ -66,6 +66,18 @@ public class Persona {
 		return salida;
 	}
 	
+	public static int updatePersona(String dni, String nombre, String apellido1, String apellido2, String sexo, String estado, String vulnerabilidad) {
+		int result = -1;
+		
+		try {
+			result = Agente.getAgente().update("update PERSONAS set NOMBRE = '"+nombre+"', APELLIDO1 = '"+apellido1+"', APELLIDO2 = '"+apellido2+"', SEXO = '"+sexo+"', ESTADO = '"+estado+"', VULNERABILIDAD = '"+vulnerabilidad+"' where DNI = '"+dni+"';");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public static ArrayList<Persona> readPersonas() {
 		ArrayList<String> list = new ArrayList<String>();
 		ResultSet resultSet;

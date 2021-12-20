@@ -1,8 +1,11 @@
 package presentacion;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -75,6 +78,35 @@ public class JFrameListarPersonas extends JFrame {
 			datos[i][7] = vulnerabilidades.get(i);	
 		}
 		
+		//Modificar persona
+		final JButton btnModificarEnfermedad = new JButton("Modificar");
+		btnModificarEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRowCount() == 1) {
+					Persona personaEncontrada = null;
+					try {
+						for (int i = 0; i < personasEncontradas.size(); i++) {
+							if (personasEncontradas.get(i).getDni() == (String) table.getValueAt(table.getSelectedRow(), 0)) {
+								personaEncontrada = personasEncontradas.get(i);
+								break;
+							}
+						}
+						
+						JFrameModificarPersonas frame = new JFrameModificarPersonas(personaEncontrada);
+						frame.setVisible(true);
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} //else {
+					//textPane.setText("Para abrir detalles selecciona una única fila");
+				//}
+				
+			}
+		});
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 70, 480, 150);
 		getContentPane().add(scrollPane);
@@ -82,5 +114,9 @@ public class JFrameListarPersonas extends JFrame {
 		model = new DefaultTableModel(datos, columnas);
 		scrollPane.setViewportView(table);
 		table.setRowSelectionInterval(0, 0);
+		
+		btnModificarEnfermedad.setBounds(150, 270, 124, 30);
+		btnModificarEnfermedad.setVisible(true);
+		contentPane.add(btnModificarEnfermedad);
 	}
 }

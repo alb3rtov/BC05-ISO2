@@ -22,4 +22,9 @@ public class GestorPersona {
 		
 		return registrado;
 	}
+	
+	public static int modificarPersona(String dni, String nombre, String apellido1, String apellido2, String sexo, String estado, String vulnerabilidad) throws Exception{
+		int modificado = Persona.updatePersona(dni, nombre, apellido1, apellido2, sexo, estado, vulnerabilidad);
+		return modificado;
+	}
 }
