@@ -59,6 +59,35 @@ public class JFrameListarPlanVacunacion extends JFrame {
 			datos[i][0] = ids.get(i);
 			datos[i][1] = enfermedades.get(i);
 		}
+		
+		//Añadir persona
+		final JButton btnAnadirPersona = new JButton("Añadir");
+		btnAnadirPersona.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRowCount() == 1) {
+					PlanVacunacion planEncontrado = null;
+					try {
+						for (int i = 0; i < planesEncontrados.size(); i++) {
+							if (planesEncontrados.get(i).getID() == Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0))) {
+								planEncontrado = planesEncontrados.get(i);
+								break;
+							}
+						}
+						
+						JFrameAnadirPersona frame = new JFrameAnadirPersona(planEncontrado);
+						frame.setVisible(true);
+					
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} //else {
+					//textPane.setText("Para abrir detalles selecciona una única fila");
+				//}
+				
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 70, 480, 80);
@@ -67,5 +96,9 @@ public class JFrameListarPlanVacunacion extends JFrame {
 		model = new DefaultTableModel(datos, columnas);
 		scrollPane.setViewportView(table);
 		table.setRowSelectionInterval(0, 0);
+		
+		btnAnadirPersona.setBounds(150, 270, 124, 30);
+		btnAnadirPersona.setVisible(true);
+		contentPane.add(btnAnadirPersona);
 	}
 }

@@ -27,4 +27,11 @@ public class GestorPlanPersona {
 		
 		return registrado;
 	}
+	
+	public static boolean anadirPersona(String dni, int campania, String fecha) throws Exception{
+		boolean anadido = false;
+		anadido = PlanVacunacion.insertPersona(dni, campania, fecha);
+		
+		return anadido;
+	}
 }

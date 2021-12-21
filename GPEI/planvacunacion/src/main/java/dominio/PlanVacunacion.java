@@ -112,4 +112,23 @@ public class PlanVacunacion {
 		}
 		return planesEncontrados;
 	}
+	
+	public static boolean insertPersona(String dni, int campania, String fecha) {
+		boolean inserted = false;
+		int salida = -1;
+
+		try {
+			salida = Agente.getAgente().insert("insert into VACUNACION_PERSONAS (ID_PERSONA, ID_CAMPANIA_VACUNACION, FECHA) values ('"+dni+"',"+campania+",'"+fecha+"');");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(salida != -1) inserted = true;
+		
+		return inserted;
+	}
 }
