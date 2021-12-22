@@ -10,5 +10,6 @@
   	<module>enfermedades</module>
   	<module>campanias</module>
   	<module>personas</module>
+  	<module>planvacunacion</module>
   </modules>
 </project>
