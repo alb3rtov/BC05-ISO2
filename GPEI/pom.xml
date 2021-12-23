@@ -11,5 +11,6 @@
   	<module>campanias</module>
   	<module>personas</module>
   	<module>planvacunacion</module>
+  	<module>estadisticas</module>
   </modules>
 </project>
